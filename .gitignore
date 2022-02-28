@@ -1,0 +1,5 @@
+# ignore all .vscode files
+.vscode/
+
+# ignore virtual environment files
+my_env/

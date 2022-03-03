@@ -133,7 +133,7 @@
   .form-horizontal .forgot{ text-align: center; }
 }
 
-#tmp {
+#form_container {
   width: 750px;
   max-width: 75%;
 

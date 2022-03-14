@@ -4,13 +4,101 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Homepage</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage_style.css') }}">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 
 <body>
-  <h1>Welcome to the Homepage!</h1>
 
-  <a href="{{ url_for('login') }}">Logout</a>
+  <div id="homepage_header" class="jumbotron">
+    <h1 id="welcome_title" class="display-4">Welcome to the Homepage!</h1>
+    <p class="lead">This page will contain the various aisles of your store that when clicked, will
+                    redirect you to a page listing the existence of the products in that aisle. </p>
+    <hr class="my-4">  
+
+    <a href="{{ url_for('login') }}">Logout</a>
+  </div>
+
+  <div id="tile_container" class="container">
+    <div class="row">
+        <div class="col-lg-6">
+          <div class="tile-progress tile-1">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tile-progress tile-2">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tile-progress tile-3">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tile-progress tile-4">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-6">
+          <div class="tile-progress tile-5">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+            
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tile-progress tile-6">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tile-progress tile-7">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="tile-progress tile-8">
+            <div class="tile-header">
+              <h3>Visitors</h3>
+              <span>so far in our blog, and our website.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
 </body>
 
 </html>

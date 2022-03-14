@@ -1,0 +1,128 @@
+html, body {
+  background-image: url("images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+#homepage_header {
+  background-color: #F5F5F5;
+}
+#welcome_title {
+  text-align: center;
+}
+#tile_container {
+  margin-top: 5%;
+}
+.tile-progress {
+  background-color: #303641;
+  color: #fff;
+}
+.tile-progress {
+  background: #00a65b;
+  color: #fff;
+  margin-bottom: 20px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+.tile-progress .tile-header {
+  padding: 15px 20px;
+  padding-bottom: 40px;
+}
+.tile-progress .tile-progressbar {
+  height: 2px;
+  background: rgba(0,0,0,0.18);
+  margin: 0;
+}
+.tile-progress .tile-progressbar span {
+  background: #fff;
+}
+.tile-progress .tile-progressbar span {
+  display: block;
+  background: #fff;
+  width: 0;
+  height: 100%;
+  -webkit-transition: all 1.5s cubic-bezier(0.230,1.000,0.320,1.000);
+  -moz-transition: all 1.5s cubic-bezier(0.230,1.000,0.320,1.000);
+  -o-transition: all 1.5s cubic-bezier(0.230,1.000,0.320,1.000);
+  transition: all 1.5s cubic-bezier(0.230,1.000,0.320,1.000);
+}
+.tile-progress .tile-footer {
+  padding: 20px;
+  text-align: right;
+  background: rgba(0,0,0,0.1);
+  -webkit-border-radius: 0 0 3px 3px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 0 0 3px 3px;
+  -moz-background-clip: padding;
+  border-radius: 0 0 3px 3px;
+  background-clip: padding-box;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+}
+.tile-progress {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 12vh;
+
+  font-size: 1.5vw;
+}
+.tile-progress.tile-1 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}
+.tile-progress.tile-2 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}
+.tile-progress.tile-3 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}
+.tile-progress.tile-4 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}
+.tile-progress.tile-5 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}
+.tile-progress.tile-6 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}
+.tile-progress.tile-7 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}
+.tile-progress.tile-8 {
+  background-color: #F5F5F5;
+  color: #000000;
+
+  border-radius: 10px;
+}

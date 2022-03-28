@@ -13,6 +13,8 @@ from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 import os
 
 ########################################################################
@@ -32,10 +34,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
+# Initializing admin user for database
+admin = Admin(app)
+
 # Initializing flask_login variables
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 ########################################################################
 #### Models
@@ -47,9 +56,13 @@ class User(UserMixin, db.Model):
   password = db.Column(db.String(80), unique=True)
   email_address = db.Column(db.String(50), unique=True)
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+# Overriding the superclass method to only allow the admin user to view the admin page
+class MyModelView(ModelView):
+  def is_accessible(self):
+    return current_user.username == "admin"
+
+# Adding models to the admin page
+admin.add_view(MyModelView(User, db.session))
 
 ########################################################################
 #### Forms

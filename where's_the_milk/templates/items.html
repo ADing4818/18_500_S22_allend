@@ -1,0 +1,46 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/items_style.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Items</title>
+</head>
+<body>
+  
+  <div id="homepage_header" class="jumbotron">
+    <h1 id="welcome_title" class="display-4">Welcome to the Item Listing Page!</h1>
+    <p class="lead">Thank you for joining! Please choose the items that you would want monitored (your choice of items can be edited later). </p>
+    <hr class="my-4">  
+  </div>
+
+  <form method="post" action="/items">
+    {{ form.csrf_token }}
+
+    <ul class="items-group">
+      <li class="items-list"> {{ wtf.form_field(form.soda) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.milk) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.chips) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.egg) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.bread) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.cereal) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.water) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.peanut_butter) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.oreos) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.orange) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.apple) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.lemon) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.tomato) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.potato) }} </li>
+      <li class="items-list"> {{ wtf.form_field(form.broccoli) }} </li>
+
+      <button id="submit-items" type="submit">Submit Items</button>
+    </ul>
+  </form>
+  
+</body>
+</html>

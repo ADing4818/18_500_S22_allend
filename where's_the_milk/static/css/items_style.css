@@ -1,0 +1,33 @@
+.items-group {
+  margin: 5% auto;
+}
+
+.items-list, #submit-items {
+  width: 15%;
+  max-width: 50%;
+
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: -1px;
+  background-color: #fff;
+
+  border: 2px solid grey;
+  border-radius: 5px;
+
+  text-align: center;
+  margin: auto;
+}
+
+.items-list:hover {
+  background-color: lightyellow;
+}
+
+.items-list:active {
+  background-color: lightyellow;
+}
+
+#submit-items {
+  margin-top: 5%;
+  background-color: lightgrey;
+}

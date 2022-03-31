@@ -5,11 +5,11 @@ URL routing, methods, database/model methods, and more)
 
 '''
 
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
+from wtforms import StringField, PasswordField, BooleanField, validators
 from wtforms.validators import InputRequired, Email, Length
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
@@ -46,6 +46,14 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Global data set that the user can choose from for the detection algorithm
+global_items = ["soda", "milk", "chips", "egg", "bread", "cereal", "water",
+                "peanut_butter", "oreos", "orange", "apple", "lemon", "tomato",
+                "potato", "broccoli"]
+
+# List of aisles in given store with a placeholder of 8 for now
+aisles = [1, 2, 3, 4, 5, 6, 7, 8]
+
 ########################################################################
 #### Models
 ########################################################################
@@ -79,6 +87,28 @@ class Signup_form(FlaskForm):
   password = PasswordField('Password', validators=[InputRequired(), Length(min=5, max=80)])
   confirm_password = PasswordField('Confirm Password', validators=[InputRequired(), Length(min=5, max=80)])
   confirmation = BooleanField('Confirmation', validators=[InputRequired()])
+
+class Items_form(FlaskForm):
+  soda = BooleanField('Soda')
+  milk = BooleanField('Milk')
+  chips = BooleanField('Chips')
+  egg = BooleanField('Egg')
+  bread = BooleanField('Bread')
+  cereal = BooleanField('Cereal')
+  water = BooleanField('Water')
+  peanut_butter = BooleanField('Peanut Butter')
+  oreos = BooleanField('Oreos')
+  orange = BooleanField('Orange')
+  apple = BooleanField('Apple')
+  lemon = BooleanField('Lemon')
+  tomato = BooleanField('Tomato')
+  potato = BooleanField('Potato')
+  broccoli = BooleanField('Broccoli')
+
+########################################################################
+#### Helper Functions
+########################################################################
+
 
 ########################################################################
 #### URL Routing
@@ -137,11 +167,34 @@ def signup():
       # signing new user in
       login_user(new_user)
 
-      return redirect(url_for('homepage'))
+      # sending user to choose their list of items to be evaluated
+      return redirect(url_for('items'))
 
   return render_template('signup.html', form=form)
 
+# Landing page for new users to choose items to analyze
+# HTML/CSS Citation: https://bbbootstrap.com/snippets/bootstrap-folder-list-checkbox-and-transform-effect-16091735
+@app.route("/items", methods=["GET", "POST"])
+@login_required
+def items():
+  form = Items_form()
+  chosen_items = []
+
+  # confirming if the form/inputs are validated
+  if form.validate_on_submit():
+    for item in global_items:
+      # check what items were checked off and add to list of items user picked
+      # Note: even if the user tampers with the item name, the code will not
+      #       register the foreign item because the name needs to be matched
+      #       against our global item list.
+      if request.form.get(item) == "y":
+        # check if each item was checked off, and if so, check for validation and add to list of items users picked
+        chosen_items.append(item)
+    
+  return render_template('items.html', form=form)
+
 # Homepage (i.e. Dashboard)
+# HTML/CSS Citation: https://getbootstrap.com/docs/4.0/layout/grid/
 @app.route("/homepage", methods=["GET", "POST"])
 @login_required
 def homepage():

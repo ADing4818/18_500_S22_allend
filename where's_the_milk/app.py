@@ -51,8 +51,17 @@ global_items = ["soda", "milk", "chips", "egg", "bread", "cereal", "water",
                 "peanut_butter", "oreos", "orange", "apple", "lemon", "tomato",
                 "potato", "broccoli"]
 
-# List of aisles in given store with a placeholder of 8 for now
-aisles = [1, 2, 3, 4, 5, 6, 7, 8]
+# Dictionary of aisles:item(s) in given store with a placeholder of 8 for now
+aisles_items = {
+  "1": [],
+  "2": [],
+  "3": [],
+  "4": [],
+  "5": [],
+  "6": [],
+  "7": [],
+  "8": []
+}
 
 ########################################################################
 #### Models
@@ -150,6 +159,7 @@ def signup():
   # validating that the form was submitted and that the fields were verified
   if form.validate_on_submit():
     username = form.username.data
+    # the password is encrypted as method|salt|hash (hash is created with password + random salt)
     hashed_password = generate_password_hash(form.password.data, method='sha256')
     hashed_confirm_password = form.confirm_password.data
     email_address = form.email_address.data
@@ -191,6 +201,10 @@ def items():
         # check if each item was checked off, and if so, check for validation and add to list of items users picked
         chosen_items.append(item)
     
+    # Adds items to aisles_items dictionary and sends the new user to the homepage
+    aisles_items["1"].extend(chosen_items)
+    return render_template('homepage.html')
+    
   return render_template('items.html', form=form)
 
 # Homepage (i.e. Dashboard)
@@ -199,6 +213,14 @@ def items():
 @login_required
 def homepage():
   return render_template('homepage.html')
+
+# This is the page where the user can see the presence of items after object detection
+@app.route("/items_presence/<aisle_number>", methods=["GET", "POST"])
+@login_required
+def items_presence(aisle_number):
+  # TO-DO: Store list of items depending on the user in the db
+  # TO-DO: Have an edit feature for list of items
+  return render_template('items_presence.html', aisles_items=aisles_items[aisle_number])
 
 # Method to logout a user and return them to the login page
 @app.route("/logout")

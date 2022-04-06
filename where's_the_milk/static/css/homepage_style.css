@@ -34,7 +34,7 @@ html, body {
 }
 .tile-progress .tile-header {
   padding: 15px 20px;
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 .tile-progress .tile-progressbar {
   height: 2px;

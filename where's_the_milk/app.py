@@ -226,6 +226,9 @@ def items():
     db.session.commit()
     chosen_items = []
     aisles_items["1"] = []
+
+    # TO-DO: Write a note about the submit button clearing/deleting items
+    # TO-DO: Have a list of items that are NOT chosen for the user to see
     
     return render_template('homepage.html')
     
@@ -243,10 +246,8 @@ def homepage():
 @login_required
 def items_presence(aisle_number):
   items = []
-  
-  # TO-DO: Store list of items depending on the user in the db
-
   # TO-DO: Have an edit feature for list of items
+  # TO-DO: Design UI for list of items
 
   # Turning aisle items string back to a list to easily iterate through
   if current_user.aisle_1 != None:

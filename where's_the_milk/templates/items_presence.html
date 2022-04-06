@@ -4,9 +4,26 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/items_presence_style.css') }}">
+  
   <title>Item Presence Page</title>
 </head>
 <body>
+
+  <div id="item_presence_header" class="jumbotron">
+    <h1 id="welcome_title" class="display-4">Welcome to the Item Status Page!</h1>
+    <p id="welcome_text" class="lead">This page will contain the following: a listing of the items being analyzed in our algorithm, 
+                    the presence of these items on the shelves, and an edit feature that allows users to request
+                    different items be analyzed.
+    </p>
+    <hr class="my-4">  
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+    </br>
+    <a href="{{ url_for('items') }}">Edit Items</a>
+  </div>
   
   {% for item in items %}
     <p>{{ item }}</p>

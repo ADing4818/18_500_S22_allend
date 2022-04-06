@@ -1,0 +1,11 @@
+html, body {
+  background-image: url("images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+#welcome_title {
+  text-align: center;
+}

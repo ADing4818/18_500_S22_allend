@@ -1,3 +1,15 @@
+html, body {
+  background-image: url("images/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+#items_header {
+  background-color: #F5F5F5;
+}
+
 .items-group {
   margin: 5% auto;
 }
@@ -29,5 +41,12 @@
 
 #submit-items {
   margin-top: 5%;
-  background-color: lightgrey;
+}
+
+#welcome_title {
+  text-align: center;
+}
+
+#welcome_text {
+  text-align: center;
 }

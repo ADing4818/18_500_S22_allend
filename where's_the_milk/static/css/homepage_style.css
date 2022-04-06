@@ -11,6 +11,9 @@ html, body {
 #welcome_title {
   text-align: center;
 }
+#welcome_text {
+  text-align: center;
+}
 #tile_container {
   margin-top: 5%;
 }

@@ -15,6 +15,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask_migrate import Migrate
 import os
 
 ########################################################################
@@ -33,6 +34,7 @@ app.config['SECRET_KEY'] = os.urandom(64)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 # Initializing admin user for database
 admin = Admin(app)
@@ -72,6 +74,13 @@ class User(UserMixin, db.Model):
   username = db.Column(db.String(25), unique=True)
   password = db.Column(db.String(80), unique=True)
   email_address = db.Column(db.String(50), unique=True)
+  aisle_1 = db.Column(db.String(500), unique=True, default=None)
+
+  '''
+    Note: more aisles can be added if necessary. We have one aisle here to show
+          proof of concept. The system is set up such that more aisles can be 
+          added if necessary.
+  '''
 
 # Overriding the superclass method to only allow the admin user to view the admin page
 class MyModelView(ModelView):
@@ -201,8 +210,23 @@ def items():
         # check if each item was checked off, and if so, check for validation and add to list of items users picked
         chosen_items.append(item)
     
+    '''
+      Note: Below implementation can be extended to multiple aisles as described
+            above.
+    '''
+
     # Adds items to aisles_items dictionary and sends the new user to the homepage
     aisles_items["1"].extend(chosen_items)
+    
+    # Adds items to the user model for future reference. A string is used because
+    # no lists are allowed as a field of a model.
+    current_user.aisle_1 = " ".join(aisles_items["1"])
+    
+    # saving the items to the db and resetting the lists for the next user
+    db.session.commit()
+    chosen_items = []
+    aisles_items["1"] = []
+    
     return render_template('homepage.html')
     
   return render_template('items.html', form=form)
@@ -218,9 +242,17 @@ def homepage():
 @app.route("/items_presence/<aisle_number>", methods=["GET", "POST"])
 @login_required
 def items_presence(aisle_number):
+  items = []
+  
   # TO-DO: Store list of items depending on the user in the db
+
   # TO-DO: Have an edit feature for list of items
-  return render_template('items_presence.html', aisles_items=aisles_items[aisle_number])
+
+  # Turning aisle items string back to a list to easily iterate through
+  if current_user.aisle_1 != None:
+    items = current_user.aisle_1.split()
+
+  return render_template('items_presence.html', items=items)
 
 # Method to logout a user and return them to the login page
 @app.route("/logout")

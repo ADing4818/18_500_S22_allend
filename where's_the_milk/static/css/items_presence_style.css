@@ -9,3 +9,27 @@ html, body {
 #welcome_title {
   text-align: center;
 }
+
+#item_presence_header {
+  background-color: #F5F5F5;
+}
+
+#analyzed-items-table, #omitted-items-table {
+  width: 50%;
+  margin: auto;
+
+  text-align: center;
+}
+
+#omitted-items-table {
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.item-elem {
+  border: 5px solid white;
+}
+
+#analyzed-items, #omitted-items {
+  text-align: center;
+}

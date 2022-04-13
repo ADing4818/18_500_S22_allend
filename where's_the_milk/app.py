@@ -75,6 +75,7 @@ class User(UserMixin, db.Model):
   password = db.Column(db.String(80), unique=True)
   email_address = db.Column(db.String(50), unique=True)
   aisle_1 = db.Column(db.String(500), unique=True, default=None)
+  aisle_1_unused = db.Column(db.String(500), unique=True, default=None)
 
   '''
     Note: more aisles can be added if necessary. We have one aisle here to show
@@ -198,6 +199,7 @@ def signup():
 def items():
   form = Items_form()
   chosen_items = []
+  unchosen_items = []
 
   # confirming if the form/inputs are validated
   if form.validate_on_submit():
@@ -209,6 +211,9 @@ def items():
       if request.form.get(item) == "y":
         # check if each item was checked off, and if so, check for validation and add to list of items users picked
         chosen_items.append(item)
+      else:
+        # storing the list of unchosen items
+        unchosen_items.append(item)
     
     '''
       Note: Below implementation can be extended to multiple aisles as described
@@ -221,14 +226,18 @@ def items():
     # Adds items to the user model for future reference. A string is used because
     # no lists are allowed as a field of a model.
     current_user.aisle_1 = " ".join(aisles_items["1"])
+    current_user.aisle_1_unused = " ".join(unchosen_items)
     
     # saving the items to the db and resetting the lists for the next user
     db.session.commit()
     chosen_items = []
+    unchosen_items = []
     aisles_items["1"] = []
 
-    # TO-DO: Write a note about the submit button clearing/deleting items
-    # TO-DO: Have a list of items that are NOT chosen for the user to see
+    '''
+      Note: Once the items form is submitted, the user is essentially editing
+            the list of items that they are choosing.
+    '''
     
     return render_template('homepage.html')
     
@@ -245,15 +254,24 @@ def homepage():
 @app.route("/items_presence/<aisle_number>", methods=["GET", "POST"])
 @login_required
 def items_presence(aisle_number):
-  items = []
-  # TO-DO: Have an edit feature for list of items
-  # TO-DO: Design UI for list of items
+  analyzed_items = []
+  omitted_items = []
+  # TO-DO: Add to docs (i.e. Readme)
+
+  '''
+    Note: For this project, we will be only using aisle 1 since the other aisles are empty.
+          The input of this function is "aisle_number", which would be normally used if the
+          other aisles were populated.
+  '''
 
   # Turning aisle items string back to a list to easily iterate through
   if current_user.aisle_1 != None:
-    items = current_user.aisle_1.split()
+    analyzed_items = current_user.aisle_1.split()
 
-  return render_template('items_presence.html', items=items)
+  if current_user.aisle_1_unused != None:
+    omitted_items = current_user.aisle_1_unused.split()
+
+  return render_template('items_presence.html', analyzed_items=analyzed_items, omitted_items=omitted_items)
 
 # Method to logout a user and return them to the login page
 @app.route("/logout")

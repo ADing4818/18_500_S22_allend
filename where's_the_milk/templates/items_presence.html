@@ -16,7 +16,11 @@
     <h1 id="welcome_title" class="display-4">Welcome to the Item Status Page!</h1>
     <p id="welcome_text" class="lead">This page will contain the following: a listing of the items being analyzed in our algorithm, 
                     the presence of these items on the shelves, and an edit feature that allows users to request
-                    different items be analyzed.
+                    different items be analyzed. We will also display a list of items that are not currently being analyzed
+                    for your convenience!
+    </p>
+    <p id="edit_text" class="lead">As for the edit feature, the "Edit Items" link below will redirect the user back to the items
+                                   listing page. Once the user submits a new form, the items being analyzed will be updated.
     </p>
     <hr class="my-4">  
 
@@ -24,10 +28,52 @@
     </br>
     <a href="{{ url_for('items') }}">Edit Items</a>
   </div>
-  
-  {% for item in items %}
-    <p>{{ item }}</p>
-  {% endfor %}
+
+  <table id="analyzed-items-table" class="table table-bordered">
+    <thead>
+      <tr>
+        <th id="analyzed-items" scope="col" colspan="3">Analyzed Items</th>
+      </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item</th>
+        <th scope="col">On Shelf?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in analyzed_items %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ item }}</td>
+          <!--NOTE: change this to whatever boolean value lucky will pass to me. for now it's hardcoded for display -->
+          <td>N/A</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table id="omitted-items-table" class="table table-bordered">
+    <thead>
+      <tr>
+        <th id="omitted-items" scope="col" colspan="3">Omitted Items</th>
+      </tr>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Item</th>
+        <th scope="col">On Shelf?</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in omitted_items %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ item }}</td>
+          <!--NOTE: change this to whatever boolean value lucky will pass to me. for now it's hardcoded for display -->
+          <td>N/A</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 </body>
 </html>
